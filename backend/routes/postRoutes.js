@@ -8,7 +8,7 @@ import {
   addComment,
   deletePost,
   getMyPosts,
-} from "../controllers/postController.js";
+} from "../controllers/postcontroller.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();

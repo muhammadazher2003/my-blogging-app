@@ -29,12 +29,14 @@ export default function HomePage() {
     fetchPosts();
   }, []);
 
-    const filteredPosts = posts.filter((post) =>
-    post.tags?.some((tag) =>
-      tag.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  const filteredPosts = posts.filter((post) =>
+    searchQuery
+      ? post.tags?.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : true
   );
-  
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -76,7 +78,7 @@ export default function HomePage() {
                   id={post._id}
                   image={post.image}
                   title={post.title}
-                  summary={post.content.substring(0, 100) + "..."}
+                  summary={(post.content || "").substring(0, 100) + "..."}
                   postId={post._id}
                 />
               ))}

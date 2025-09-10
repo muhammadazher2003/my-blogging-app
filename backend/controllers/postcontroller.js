@@ -11,13 +11,14 @@ export const createPost = async (req, res) => {
       tags,
       author: req.userId,
     });
-    res.status(201).json(post);
+    const populatedPost = await post.populate("author", "name");
+    res.status(201).json(populatedPost);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-export const getPosts = async (res) => {
+export const getPosts = async (req, res) => {
   try {
     const posts = await Post.find().populate("author", "name").sort({ createdAt: -1 });
     res.json(posts);
@@ -36,9 +37,11 @@ export const getPostById = async (req, res) => {
   }
 };
 
-export const getMyPosts = async (req,res) => {
+export const getMyPosts = async (req, res) => {
   try {
-    const posts = await Post.find({ author: req.userId }).sort({ createdAt: -1 });
+    const posts = await Post.find({ author: req.userId })
+      .populate("author", "name")
+      .sort({ createdAt: -1 });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });

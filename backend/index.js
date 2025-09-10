@@ -4,7 +4,6 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-import { getMyPosts } from "./controllers/postController.js";
 
 dotenv.config();
 const app = express();
