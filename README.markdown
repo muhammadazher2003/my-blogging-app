@@ -8,7 +8,9 @@ Built with **React (frontend)** and **Node.js + Express + MongoDB (backend)**.
 - ✍️ Create, edit, and delete blog posts  
 - 🖼️ Upload post images  
 - 🔎 Search posts by tags  
-- 📄 Pagination support  
+- 📄 Pagination support 
+- ❤️ Like and Unlike posts (real-time update)
+- 💬 Add and view comments (with rounded chat-style UI) 
 - 🎨 Responsive UI with Tailwind CSS  
 
 ## 🛠️ Tech Stack
@@ -72,16 +74,3 @@ Contributions are welcome! Please fork this repo and submit a pull request.
 
 ## 📜 License
 This project is licensed under the MIT License.
-
-## ✅ How to Push to GitHub
-After adding the `README.md` file:
-```bash
-# 1. Add changes
-git add README.md
-
-# 2. Commit changes
-git commit -m "Added README file"
-
-# 3. Push to GitHub
-git push origin main
-```

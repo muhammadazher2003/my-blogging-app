@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import User from "../models/User.js";
 
 export const createPost = async (req, res) => {
   try {
@@ -16,7 +17,7 @@ export const createPost = async (req, res) => {
   }
 };
 
-export const getPosts = async (req, res) => {
+export const getPosts = async (res) => {
   try {
     const posts = await Post.find().populate("author", "name").sort({ createdAt: -1 });
     res.json(posts);
@@ -43,6 +44,44 @@ export const getMyPosts = async (req,res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+export const likePost = async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  if (!post) return res.status(404).send("Post not found");
+
+  if (post.likes.includes(req.userId)) {
+    post.likes.pull(req.userId);
+  } else {
+    post.likes.push(req.userId);
+  }
+
+  await post.save();
+  res.json(post);
+};
+
+export const addComment = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).send("Post not found");
+
+    const user = await User.findById(req.userId);  
+    if (!user) return res.status(404).send("User not found");
+
+    post.comments.push({
+      user: { id: user._id, name: user.name },
+      text: req.body.text,
+    });
+
+    await post.save();
+
+    res.json(post);
+  } catch (err) {
+    console.error("❌ Error adding comment:", err.message);
+    res.status(500).send("Server error");
+  }
+};
+
 
 export const updatePost = async (req, res) => {
   try {

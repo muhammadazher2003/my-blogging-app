@@ -14,7 +14,7 @@ export default function Navbar({setSearchQuery, showSearch = true}) {
 
   const handleInput = (e) => {
     setQuery(e.target.value);
-    setSearchQuery(e.target.value); // send to parent (HomePage)
+    setSearchQuery(e.target.value);
   };
 
   const handlesignout = ()=>{

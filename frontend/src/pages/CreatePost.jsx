@@ -60,7 +60,7 @@ export default function CreatePost() {
             },
           }
         );
-        navigate("/"); // Redirect to homepage
+        navigate("/");
       } catch (err) {
         console.error(
           "❌ Error creating post:",
@@ -87,7 +87,7 @@ export default function CreatePost() {
           },
         }
       );
-      navigate("/"); // Redirect to homepage
+      navigate("/");
     } catch (err) {
       console.error(
         "❌ Error creating post:",

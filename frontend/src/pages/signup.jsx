@@ -26,14 +26,12 @@ export default function SignUp() {
       const res = await axios.post(
         "http://localhost:5000/api/auth/register",
         formData
-      ); // Replace with your backend URL
-      console.log(res.data); // You can store token if needed
+      );
+      console.log(res.data);
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      // Redirect user to homepage or login
       navigate("/");
-      // Redirect user to homepage or login
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
     } finally {

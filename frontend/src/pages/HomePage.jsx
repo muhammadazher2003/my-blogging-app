@@ -19,7 +19,7 @@ export default function HomePage() {
     const fetchPosts = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/posts");
-        setPosts(res.data); // Ensure your controller returns JSON array
+        setPosts(res.data);
       } catch (error) {
         console.error("Failed to fetch posts", error);
       } finally {
@@ -34,8 +34,7 @@ export default function HomePage() {
       tag.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
-
-  // Pagination logic
+  
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
