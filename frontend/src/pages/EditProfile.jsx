@@ -17,7 +17,7 @@ export default function EditProfile() {
     // fetch user profile
     (async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${user.id}`);
+        const res = await axios.get(`http://localhost:5000/api/users/${user.username}`);
         const fetched = res.data.user || res.data; // adapt to your response shape
         setForm({
           bio: fetched.bio || "",
