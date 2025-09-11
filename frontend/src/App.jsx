@@ -7,6 +7,7 @@ import CreatePost from "./pages/CreatePost";
 import MyPosts from "./pages/MyProjects";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/myprojects" element={<MyPosts />} />
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

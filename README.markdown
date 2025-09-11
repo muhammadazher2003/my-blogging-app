@@ -5,14 +5,17 @@ A full-stack MERN blogging platform where users can create, edit, delete, and br
 ## 🚀 Features
 
 - 🔐 User authentication with JWT
-- 👤 User Profiles (bio, avatar, social links)
 - ✍️ Create, edit, and delete blog posts
-- 🖼️ Upload post images
 - 🔎 Search posts by tags
 - 📄 Pagination support
 - ❤️ Like and Unlike posts (real-time update)
 - 💬 Add and view comments (with rounded chat-style UI)
-- 📖 Public Author Pages – click an author’s name to see all their blogs
+- 👤 Public user profiles (view other authors' posts)
+- 📊 Personalized dashboard with post insights (NEW)
+  - Total Posts
+  - Total Likes
+  - Total Comments
+  - Quick overview of recent posts with stats
 - 🎨 Responsive UI with Tailwind CSS
 
 ## 🛠️ Tech Stack
@@ -52,6 +55,10 @@ my-blogging-app/
 
 ### ✍️ Create Blog Page
 ![Comments Section](./screenshots/CreateBlogPage.png)
+
+### 📊 Dashboard Page
+![Comments Section](./screenshots/Dashboard.png)
+
 
 *Note*: Replace the placeholders (`./screenshots/...`) with actual screenshots by creating a `screenshots` folder in the project root and adding PNG/JPG files.
 

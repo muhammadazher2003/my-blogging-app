@@ -135,6 +135,12 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
                   Edit Profile
                 </a>
                 <div className="border-t border-gray-700 my-2 mx-4"></div>
+                <a
+                  href={`/dashboard`}
+                  className="block px-4 py-2 hover:bg-gray-800"
+                >
+                  Dashboard
+                </a>
                 <button
                   onClick={handlesignout}
                   className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800"
@@ -215,6 +221,12 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
               Edit Profile
             </a>
             <div className="border-t border-gray-700 mt-2 pt-2">
+              <a
+                  href={`/dashboard`}
+                  className="block px-4 py-2 hover:bg-gray-800"
+                >
+                  Dashboard
+                </a>
               <button
               onClick={handlesignout}
               className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800"
