@@ -2,16 +2,19 @@ import React, {useState} from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { MdVpnKey } from "react-icons/md";
 import { IoMdMail } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
     name: "",
+    username:"",
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -87,6 +90,26 @@ export default function SignUp() {
                 required
                 className="w-full bg-transparent text-white placeholder-gray-500 py-2 focus:outline-none"
                 placeholder="you@example.com"
+              />
+            </div>
+          </div>
+          {/*UserName*/}
+          <div>
+            <label htmlFor="username" className="block text-sm text-gray-300 mb-1">
+              UserName
+            </label>
+            <div className="flex items-center border border-gray-700 rounded-md px-3 bg-gray-800 focus-within:border-blue-500">
+              <label htmlFor="username">
+                <FaUserCircle className="text-gray-400 mr-2" />
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={formData.username}
+                onChange={handleChange}
+                required
+                className="w-full bg-transparent text-white placeholder-gray-500 py-2 focus:outline-none"
+                placeholder="Jon Snow"
               />
             </div>
           </div>
