@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 const BlogPost = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState("");
+  const [bookmarks, setBookmarks] = useState([]);
   const user = localStorage.getItem("user");
   const userId = JSON.parse(user).id;
 
@@ -17,6 +19,7 @@ const BlogPost = () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
         setPost(res.data);
+        setBookmarks(JSON.parse(user).bookmarks || []);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching post:", err.message);
@@ -58,6 +61,39 @@ const BlogPost = () => {
     }
   };
 
+  const handleBookmark = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.post(
+        `http://localhost:5000/api/posts/${post._id}/bookmark`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log(post);
+      const message = res.data.message.split(" ")[0];
+      console.log(message);
+      const userjson = JSON.parse(user);
+      if (message == "Added") {
+        console.log("ddd");
+        userjson.bookmarks
+          ? userjson.bookmarks.push(id)
+          : (userjson.bookmarks = [id]);
+        setBookmarks((prev) => [...prev, post._id]);
+        console.log("ddd");
+        localStorage.setItem("user", JSON.stringify(userjson));
+      } else if (message == "Removed") {
+        userjson.bookmarks?.pop();
+        console.log("sss");
+        setBookmarks((prev) =>
+          prev.filter((bookmark) => bookmark !== post._id)
+        );
+        localStorage.setItem("user", JSON.stringify(userjson));
+      }
+    } catch (err) {
+      console.error("Error bookmarking:", err);
+    }
+  };
+
   if (loading)
     return <div className="text-center text-white py-20">Loading...</div>;
   if (!post)
@@ -70,23 +106,23 @@ const BlogPost = () => {
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Cover Image */}
         {/* Author Section */}
-<Link
-  to={`/profile/${post.author.username}`}
-  className="flex items-center gap-3 mb-6 group"
->
-  {/* Avatar Circle */}
-  <div className="w-12 h-12 rounded-full bg-sky-600 flex items-center justify-center text-lg font-bold text-white shadow-md group-hover:scale-105 transition">
-    {post.author.name?.[0]?.toUpperCase() || "?"}
-  </div>
+        <Link
+          to={`/profile/${post.author.username}`}
+          className="flex items-center gap-3 mb-6 group"
+        >
+          {/* Avatar Circle */}
+          <div className="w-12 h-12 rounded-full bg-sky-600 flex items-center justify-center text-lg font-bold text-white shadow-md group-hover:scale-105 transition">
+            {post.author.name?.[0]?.toUpperCase() || "?"}
+          </div>
 
-  {/* Author Info */}
-  <div>
-    <p className="font-semibold text-sky-400 group-hover:text-sky-300 transition">
-      {post.author.name}
-    </p>
-    <p className="text-sm text-gray-400">@{post.author.username}</p>
-  </div>
-</Link>
+          {/* Author Info */}
+          <div>
+            <p className="font-semibold text-sky-400 group-hover:text-sky-300 transition">
+              {post.author.name}
+            </p>
+            <p className="text-sm text-gray-400">@{post.author.username}</p>
+          </div>
+        </Link>
         {post.image && (
           <img
             src={post.image}
@@ -106,6 +142,23 @@ const BlogPost = () => {
           </span>{" "}
           on {new Date(post.createdAt).toLocaleDateString()}
         </div>
+
+        <button
+          onClick={handleBookmark}
+          className="ml-0 flex items-center gap-2 text-yellow-400 hover:text-yellow-500"
+        >
+          {bookmarks?.includes(post._id) ? (
+            <>
+              <FaBookmark />
+              <span>Saved</span>
+            </>
+          ) : (
+            <>
+              <FaRegBookmark />
+              <span>Save</span>
+            </>
+          )}
+        </button>
 
         {/* Content */}
         <div className="prose prose-invert max-w-none text-gray-300">

@@ -141,9 +141,16 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
                 >
                   Dashboard
                 </a>
+                <a
+                  href={`/savedposts`}
+                  className="block px-4 py-2 hover:bg-gray-800"
+                >
+                  Saved Posts
+                </a>
+                <div className="border-t border-gray-700 my-2 mx-4"></div>
                 <button
                   onClick={handlesignout}
-                  className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800"
+                  className="block w-full text-left px-4 py-2 rounded-md hover:bg-gray-800"
                 >
                   Sign out
                 </button>
@@ -195,6 +202,7 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
       {/* Mobile dropdown menu */}
       {mobileMenuOpen && (
         <div className="md:hidden px-4 pb-4 pt-2 space-y-1 bg-gray-900 border-t border-gray-800">
+          {/* Group 1 */}
           <a
             href="/create-post"
             className="block px-3 py-2 rounded-md hover:bg-gray-800"
@@ -207,35 +215,51 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
           >
             My Blogs
           </a>
-          <div className="border-t border-gray-700 mt-2 pt-2">
-            <a
-              href={`/profile/${userName}`}
-              className="block px-3 py-2 rounded-md hover:bg-gray-800"
-            >
-              Your Profile
-            </a>
-            <a
-              href={`/profile/edit`}
-              className="block px-3 py-2 rounded-md hover:bg-gray-800"
-            >
-              Edit Profile
-            </a>
-            <div className="border-t border-gray-700 mt-2 pt-2">
-              <a
-                  href={`/dashboard`}
-                  className="block px-4 py-2 hover:bg-gray-800"
-                >
-                  Dashboard
-                </a>
-              <button
-              onClick={handlesignout}
-              className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800"
-            >
-              Sign out
-            </button>
-            </div>
-            
-          </div>
+
+          {/* Separator */}
+          <div className="border-t border-gray-700 my-2" />
+
+          {/* Group 2 */}
+          <a
+            href={`/profile/${userName}`}
+            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+          >
+            Your Profile
+          </a>
+          <a
+            href={`/profile/edit`}
+            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+          >
+            Edit Profile
+          </a>
+
+          {/* Separator */}
+          <div className="border-t border-gray-700 my-2" />
+
+          {/* Group 3 */}
+          <a
+            href={`/dashboard`}
+            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+          >
+            Dashboard
+          </a>
+          <a
+            href={`/savedposts`}
+            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+          >
+            Saved Posts
+          </a>
+
+          {/* Separator */}
+          <div className="border-t border-gray-700 my-2" />
+
+          {/* Group 4 (signout) */}
+          <button
+            onClick={handlesignout}
+            className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800"
+          >
+            Sign out
+          </button>
         </div>
       )}
     </nav>

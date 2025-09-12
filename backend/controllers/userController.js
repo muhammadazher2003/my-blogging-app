@@ -32,3 +32,14 @@ export const updateUserProfile = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+
+export const getBookmarks = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).populate("bookmarks");
+    res.json(user.bookmarks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

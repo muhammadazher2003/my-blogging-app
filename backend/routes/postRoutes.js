@@ -8,6 +8,7 @@ import {
   addComment,
   deletePost,
   getMyPosts,
+  toggleBookmark,
 } from "../controllers/postcontroller.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
@@ -18,6 +19,7 @@ router.get("/myposts", authMiddleware, getMyPosts);
 router.get("/:id", getPostById);
 router.post("/", authMiddleware, createPost);
 router.put("/:id", authMiddleware, updatePost);
+router.post("/:id/bookmark", authMiddleware, toggleBookmark);
 router.delete("/:id", authMiddleware, deletePost);
 router.post("/:id/like", authMiddleware, likePost);
 router.post("/:id/comment", authMiddleware, addComment);

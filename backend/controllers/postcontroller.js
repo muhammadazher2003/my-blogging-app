@@ -116,3 +116,23 @@ export const deletePost = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+export const toggleBookmark = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    const postId = req.params.id;
+
+    if (user.bookmarks.includes(postId)) {
+      user.bookmarks = user.bookmarks.filter(id => id.toString() !== postId);
+      await user.save();
+      return res.json({ message: "Removed from bookmarks", bookmarks: user.bookmarks });
+    } else {
+      user.bookmarks.push(postId);
+      await user.save();
+      return res.json({ message: "Added to bookmarks", bookmarks: user.bookmarks });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

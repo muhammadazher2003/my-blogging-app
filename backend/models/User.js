@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     github: { type: String, default: "" },
     linkedin: { type: String, default: "" },
   },
+  bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   username: { type: String, unique: true, required: true }, // 👈 added
 }, { timestamps: true });
 
