@@ -51,7 +51,7 @@ Here are a few highlights:
 ![User Profile](./screenshots/profile.png)
 
 ### 📊 Dashboard Page
-![Comments Section](./screenshots/Dashboard.png)
+![Dashboard Section](./screenshots/Dasboard.png)
 
 👉 See more in [SCREENSHOTS.md](./SCREENSHOTS.md)
 
