@@ -41,23 +41,19 @@ my-blogging-app/
 ```
 
 ## 📸 Screenshots
+
+Here are a few highlights:
+
 ### 🏠 Homepage
 ![Homepage](./screenshots/HomePage.png)
-
-### 📖 Blog Post Page
-![Blog Post Page](./screenshots/BlogPostPage.png)
 
 ### 👤 User Profile Page
 ![User Profile](./screenshots/profile.png)
 
-### 📚 My Blogs Page
-![Comments Section](./screenshots/MyBlogsPage.png)
-
-### ✍️ Create Blog Page
-![Comments Section](./screenshots/CreateBlogPage.png)
-
 ### 📊 Dashboard Page
 ![Comments Section](./screenshots/Dashboard.png)
+
+👉 See more in [SCREENSHOTS.md](./SCREENSHOTS.md)
 
 
 *Note*: Replace the placeholders (`./screenshots/...`) with actual screenshots by creating a `screenshots` folder in the project root and adding PNG/JPG files.
