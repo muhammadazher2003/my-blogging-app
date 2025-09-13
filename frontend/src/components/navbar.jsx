@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 export default function Navbar({ setSearchQuery, showSearch = true }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -8,6 +11,7 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
   const [userlogin, setUserlogin] = useState(false);
   const token = localStorage.getItem("token");
   const userData = localStorage.getItem("user");
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const userName = userData ? JSON.parse(userData).username : null;
   const [query, setQuery] = useState("");
   const isAuthenticated = !!token;
@@ -31,12 +35,15 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
   }, []);
 
   return (
-    <nav className="bg-gray-900 text-white border-b border-gray-700">
+    <nav className="bg-white text-gray-900 border-b border-gray-100 shadow-lg dark:bg-gray-900 dark:text-white dark:border-gray-700">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center" onClick={() => navigate("/")}>
-            <img className="h-6 w-auto" src={Logo} alt="Logo" />
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            <img className="h-9 w-auto transition-transform duration-300 hover:scale-110 dark:h-6" src={Logo} alt="Logo" />
           </div>
 
           {/* Search */}
@@ -45,7 +52,7 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
               <div className="relative max-w-md mx-auto">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
-                    className="h-5 w-5 text-gray-400"
+                    className="h-5 w-5 text-gray-400 dark:text-gray-500"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -61,8 +68,12 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
                 <input
                   onChange={handleInput}
                   type="text"
-                  placeholder="Search"
-                  className="block w-full bg-gray-800 text-white rounded-md pl-10 pr-3 py-2 focus:outline-none focus:bg-gray-700"
+                  placeholder="Search posts..."
+                  className="block w-full bg-white text-gray-900 rounded-full pl-10 pr-3 py-2.5 
+                            border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400
+                            dark:focus:ring-blue-400 
+                            focus:border-transparent shadow-sm transition-all duration-300 hover:shadow-md 
+                            dark:bg-gray-800 dark:text-white dark:focus:bg-gray-700"
                 />
               </div>
             </div>
@@ -73,10 +84,11 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
             {userlogin ? (
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center space-x-2 rounded-full px-3 py-2"
+                className="flex items-center space-x-2 rounded-full px-3 py-2 hover:bg-indigo-50 
+                          transition-all duration-300 dark:hover:bg-gray-800"
               >
                 <svg
-                  className="h-6 w-6"
+                  className="h-6 w-6 text-gray-700 dark:text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -100,7 +112,11 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
               </button>
             ) : (
               <a href="/signin">
-                <button className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-blue-600 hover:to-sky-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                <button
+                  className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 
+                            text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all 
+                            duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl dark:bg-gradient-to-r dark:from-sky-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-sky-500 dark:text-white dark:font-semibold dark:rounded-full dark:shadow-lg dark:transition-all dark:duration-300"
+                >
                   Sign In
                 </button>
               </a>
@@ -108,51 +124,69 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
 
             {/* Dropdown menu (on click) */}
             {dropdownOpen && userlogin && (
-              <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-900 border-t border-gray-800 text-white py-2 z-50">
+              <div
+                className="absolute right-0 mt-2 w-60 rounded-2xl shadow-xl bg-white border border-gray-100 
+                          text-gray-900 py-3 z-50 dark:bg-gray-900 dark:border-gray-800 dark:text-white"
+              >
                 <a
                   href="/create-post"
-                  className="block px-4 py-2 hover:bg-gray-800 font-medium"
+                  className="block px-4 py-2.5 hover:bg-indigo-50 font-semibold transition-all 
+                            duration-200 dark:hover:bg-gray-800"
                 >
                   Write new Blog
                 </a>
                 <a
                   href="/myprojects"
-                  className="block px-4 py-2 hover:bg-gray-800"
+                  className="block px-4 py-2.5 hover:bg-indigo-50 transition-all duration-200 
+                            dark:hover:bg-gray-800"
                 >
                   My Blogs
                 </a>
-                <div className="border-t border-gray-700 my-2 mx-4"></div>
+                <div className="border-t border-gray-100 my-2 mx-4 dark:border-gray-700"></div>
                 <a
                   href={`/profile/${userName}`}
-                  className="block px-4 py-2 hover:bg-gray-800"
+                  className="block px-4 py-2.5 hover:bg-indigo-50 transition-all duration-200 
+                            dark:hover:bg-gray-800"
                 >
                   Your Profile
                 </a>
                 <a
                   href={`/profile/edit`}
-                  className="block px-4 py-2 hover:bg-gray-800"
+                  className="block px-4 py-2.5 hover:bg-indigo-50 transition-all duration-200 
+                            dark:hover:bg-gray-800"
                 >
                   Edit Profile
                 </a>
-                <div className="border-t border-gray-700 my-2 mx-4"></div>
+                <div className="border-t border-gray-100 my-2 mx-4 dark:border-gray-700"></div>
                 <a
                   href={`/dashboard`}
-                  className="block px-4 py-2 hover:bg-gray-800"
+                  className="block px-4 py-2.5 hover:bg-indigo-50 transition-all duration-200 
+                            dark:hover:bg-gray-800"
                 >
                   Dashboard
                 </a>
                 <a
                   href={`/savedposts`}
-                  className="block px-4 py-2 hover:bg-gray-800"
+                  className="block px-4 py-2.5 hover:bg-indigo-50 transition-all duration-200 
+                            dark:hover:bg-gray-800"
                 >
                   Saved Posts
                 </a>
-                <div className="border-t border-gray-700 my-2 mx-4"></div>
+                <div className="border-t border-gray-100 my-2 mx-4 dark:border-gray-700"></div>
                 <button
                   onClick={handlesignout}
-                  className="block w-full text-left px-4 py-2 rounded-md hover:bg-gray-800"
+                  className="block w-full text-left px-4 py-2.5 rounded-md hover:bg-indigo-50 
+                            transition-all duration-200 dark:hover:bg-gray-800"
                 >
                   Sign out
+                </button>
+                <button
+                  onClick={toggleTheme}
+                  className="px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all duration-200 
+                            flex items-center w-full dark:hover:bg-gray-700"
+                >
+                  {theme === "dark" ? <FaSun className="text-yellow-500 mr-2" /> : <FaMoon className="text-gray-600 mr-2" />}
+                  {theme === "dark" ? " Light Mode" : " Dark Mode"}
                 </button>
               </div>
             )}
@@ -163,10 +197,11 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
             {userlogin ? (
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-md hover:bg-gray-800"
+                className="p-2 rounded-full hover:bg-indigo-50 transition-all duration-200 
+                          dark:hover:bg-gray-800"
               >
                 <svg
-                  className="h-6 w-6"
+                  className="h-6 w-6 text-gray-700 dark:text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -190,7 +225,11 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
               </button>
             ) : (
               <a href="/signin">
-                <button className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-blue-600 hover:to-sky-500 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                <button
+                  className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 
+                            text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all 
+                            duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl dark:bg-gradient-to-r dark:from-sky-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-sky-500 dark:text-white dark:font-semibold dark:rounded-full dark:shadow-lg dark:transition-all dark:duration-300"
+                >
                   Sign In
                 </button>
               </a>
@@ -201,64 +240,69 @@ export default function Navbar({ setSearchQuery, showSearch = true }) {
 
       {/* Mobile dropdown menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden px-4 pb-4 pt-2 space-y-1 bg-gray-900 border-t border-gray-800">
-          {/* Group 1 */}
+        <div
+          className="md:hidden px-4 pb-4 pt-2 space-y-1 bg-white border-t border-gray-100 text-gray-900 
+                    dark:bg-gray-900 dark:border-gray-800 dark:text-white"
+        >
           <a
             href="/create-post"
-            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all 
+                      duration-200 dark:hover:bg-gray-800"
           >
             Write new Blog
           </a>
           <a
             href="/myprojects"
-            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all 
+                      duration-200 dark:hover:bg-gray-800"
           >
             My Blogs
           </a>
-
-          {/* Separator */}
-          <div className="border-t border-gray-700 my-2" />
-
-          {/* Group 2 */}
+          <div className="border-t border-gray-100 my-2 dark:border-gray-700" />
           <a
             href={`/profile/${userName}`}
-            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all 
+                      duration-200 dark:hover:bg-gray-800"
           >
             Your Profile
           </a>
           <a
             href={`/profile/edit`}
-            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all 
+                      duration-200 dark:hover:bg-gray-800"
           >
             Edit Profile
           </a>
-
-          {/* Separator */}
-          <div className="border-t border-gray-700 my-2" />
-
-          {/* Group 3 */}
+          <div className="border-t border-gray-100 my-2 dark:border-gray-700" />
           <a
             href={`/dashboard`}
-            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all 
+                      duration-200 dark:hover:bg-gray-800"
           >
             Dashboard
           </a>
           <a
             href={`/savedposts`}
-            className="block px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all 
+                      duration-200 dark:hover:bg-gray-800"
           >
             Saved Posts
           </a>
-
-          {/* Separator */}
-          <div className="border-t border-gray-700 my-2" />
-
-          {/* Group 4 (signout) */}
+          <div className="border-t border-gray-100 my-2 dark:border-gray-700" />
           <button
             onClick={handlesignout}
-            className="block w-full text-left px-3 py-2 rounded-md hover:bg-gray-800"
+            className="block w-full text-left px-4 py-2.5 rounded-md hover:bg-indigo-50 
+                      transition-all duration-200 dark:hover:bg-gray-800"
           >
             Sign out
+          </button>
+          <button
+            onClick={toggleTheme}
+            className="px-4 py-2.5 rounded-md hover:bg-indigo-50 transition-all duration-200 
+                      flex items-center dark:hover:bg-gray-700"
+          >
+            {theme === "dark" ? <FaSun className="text-yellow-500 mr-2" /> : <FaMoon className="text-gray-600 mr-2" />}
+            {theme === "dark" ? " Light Mode" : " Dark Mode"}
           </button>
         </div>
       )}

@@ -23,9 +23,12 @@ export default function SavedPosts() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-6">
-      <h1 className="text-2xl font-bold mb-6">📑 Saved Posts</h1>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="min-h-screen bg-gray-100 text-gray-900 transition-colors py-16 px-6 dark:bg-gray-950 dark:text-white">
+      <h1 className="text-4xl font-extrabold mb-10 text-indigo-600 tracking-tight dark:text-blue-400">
+        📑 Saved Posts
+      </h1>
+
+      <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {saved.length > 0 ? (
           saved.map((post) => (
             <PostCard
@@ -37,7 +40,9 @@ export default function SavedPosts() {
             />
           ))
         ) : (
-          <p className="text-gray-400">No saved posts yet.</p>
+          <p className="text-gray-600 text-lg font-medium dark:text-gray-400">
+            No saved posts yet.
+          </p>
         )}
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React from "react";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-6 text-center border-t border-gray-800">
-      <p className="text-sm">© {new Date().getFullYear()} Blogify. Built with 💙 using React + Tailwind.</p>
+    <footer className="bg-white text-gray-600 border-t border-gray-100 py-10 text-center transition-colors duration-300 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-800">
+      <p className="text-sm font-semibold tracking-wide">
+        © {new Date().getFullYear()} Blogify. Built with <span className="text-indigo-600">💙</span> using React + Tailwind.
+      </p>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -5,7 +5,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
-const MyPosts = () => {
+function MyPosts() {
   const [posts, setPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -17,14 +17,14 @@ const MyPosts = () => {
 
   const handleDelete = async (postId) => {
     try {
-        const token = localStorage.getItem("token");
-        const res = await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        window.location.reload();
-      } catch (err) {
-        console.error("❌ Failed to fetch user posts:", err);
-      }
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      window.location.reload();
+    } catch (err) {
+      console.error("❌ Failed to fetch user posts:", err);
+    }
   };
 
   useEffect(() => {
@@ -43,7 +43,6 @@ const MyPosts = () => {
     fetchMyPosts();
   }, []);
 
-
   const filteredPosts = posts.filter(
     (post) =>
       post.tags?.some((tag) =>
@@ -53,43 +52,49 @@ const MyPosts = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-gray-100 text-gray-900 transition-colors dark:bg-gray-950 dark:text-white">
       <Navbar setSearchQuery={setSearchQuery} />
 
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-blue-500 mb-8">My Blog Posts</h1>
+      <div className="max-w-5xl mx-auto px-6 py-16">
+        <h1 className="text-4xl font-extrabold mb-10 text-indigo-600 tracking-tight dark:text-blue-500">
+          My Blog Posts
+        </h1>
 
         {filteredPosts.length === 0 ? (
-          <p className="text-gray-400">You haven't written any posts yet.</p>
+          <p className="text-gray-600 text-lg font-medium dark:text-gray-400">
+            You haven't written any posts yet.
+          </p>
         ) : (
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {filteredPosts.map((post) => (
               <div
                 key={post._id}
-                className="bg-gray-900 border border-gray-800 rounded-lg p-4 shadow relative"
+                className="bg-white border border-gray-100 rounded-2xl p-6 shadow-xl relative transition-all duration-300 hover:shadow-2xl dark:bg-gray-900 dark:border-gray-800"
               >
-                <div className="absolute top-2 right-2 flex space-x-2">
+                <div className="absolute top-4 right-4 flex space-x-3">
                   <button
                     onClick={() => handleEdit(post._id)}
-                    className="text-blue-400 hover:text-blue-600"
+                    className="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-blue-600 transition-all duration-200"
                     title="Edit"
                   >
-                    <FiEdit size={18} />
+                    <FiEdit size={20} />
                   </button>
                   <button
                     onClick={() => handleDelete(post._id)}
-                    className="text-red-400 hover:text-red-600"
+                    className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-600 transition-all duration-200"
                     title="Delete"
                   >
-                    <FiTrash2 size={18} />
+                    <FiTrash2 size={20} />
                   </button>
                 </div>
 
-                <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-                <p className="text-sm text-gray-400 mb-2">
+                <h2 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+                  {post.title}
+                </h2>
+                <p className="text-sm text-gray-500 mb-3 dark:text-gray-400">
                   {new Date(post.createdAt).toLocaleDateString()}
                 </p>
-                <p className="text-gray-300 line-clamp-3">
+                <p className="text-gray-700 line-clamp-3 dark:text-gray-300">
                   {post.content.slice(0, 200)}...
                 </p>
               </div>
@@ -101,6 +106,6 @@ const MyPosts = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default MyPosts;

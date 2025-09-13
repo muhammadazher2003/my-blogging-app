@@ -9,10 +9,12 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Dashboard from "./pages/Dashboard";
 import SavedPosts from "./pages/SavedPosts";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (
-    <Router>
+    <ThemeProvider>
+      <Router>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
@@ -26,6 +28,7 @@ function App() {
         <Route path="/savedposts" element={<SavedPosts />} />
       </Routes>
     </Router>
+    </ThemeProvider>
   );
 }
 
