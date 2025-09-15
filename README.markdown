@@ -2,6 +2,8 @@
 
 A full-stack MERN blogging platform where users can create, edit, delete, and browse blog posts. Built with React (frontend) and Node.js + Express + MongoDB (backend).
 
+![Homepage](./screenshots/HomePage.png)
+
 ## 🚀 Features
 
 - 🔐 User authentication with JWT
@@ -43,9 +45,6 @@ my-blogging-app/
 ## 📸 Screenshots
 
 Here are a few highlights:
-
-### 🏠 Homepage
-![Homepage](./screenshots/HomePage.png)
 
 ### 👤 User Profile Page
 ![User Profile](./screenshots/profile.png)
